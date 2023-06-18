@@ -16,6 +16,14 @@
       <div class="container" data-aos="fade-up">
         <ul class="nav nav-tabs d-flex">
 
+       
+        <li class="nav-item col-6 col-md-4 col-lg-2">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-7">
+              <i class="bi bi-box-seam color-indigo"></i>
+              <h4><Table>Usage</Table></h4>
+            </a>
+          </li>
+
           <li class="nav-item col-6 col-md-4 col-lg-2">
             <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#tab-1">
               <i class="bi bi-binoculars color-cyan"></i>
@@ -116,12 +124,64 @@
                         </div>
                         <div class="text-center mt-auto mt-2">
                           <a style="background-color:purple" href="#" class="buy-btn ">Transfer</a>
-                        
-                          <!-- <a href="#" class="buy-btn">Buy Now</a> -->
+    
                         </div>
                       </div>
 
-                     
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-pane show" id="tab-7">
+                  <div class="row gy-4">
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                      
+
+                      <div class="card">
+                        <div class="card-header"><h6 style="color:purple" class="text">Usage</h6></div>
+                        <div class="card-body">
+                        <div class="container mt-5">
+                          <h1>Electricity Usage Monitor</h1>
+                          <canvas id="usageChart" width="400" height="200"></canvas>
+                        </div>
+
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sample data for demonstration
+      var usageData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Electricity Usage',
+          data: [500, 650, 800, 700, 900, 750],
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      };
+
+      // Chart configuration
+      var chartConfig = {
+        type: 'bar',
+        data: usageData,
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      };
+
+      // Create and render the chart
+      var usageChart = new Chart(document.getElementById('usageChart'), chartConfig);
+    });
+  </script>
+                        </div>
+                      
+                      </div>
 
                     </div>
                   </div>
@@ -183,6 +243,41 @@
                   </div>
                 </div>
 
+
+                <div class="tab-pane show" id="tab-5">
+                  <div class="row gy-4">
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                      
+
+                      <div class="card mt-3">
+                        <div class="card-header"><h6 style="color:red" class="text">Select Units</h6></div>
+                        <div class="card-body">
+                        <ul class="list-group">
+                          <form action="" method="post">
+                            <div class="form-group mt-3">
+                              <label for="">Select Units</label>
+                              <select name="" id="" class="form-control" >
+                                <option value="">400 Units</option>
+                                <option value="">1000 Units</option>
+                                <option value="">20000 Units</option>
+                                <option value="">50000 Units</option>
+                              </select>
+
+                        
+                            </div>
+                            
+                          </form>
+                        </ul>
+                        </div>
+                        <div class="text-center mt-auto mt-2">
+                         <a href="#" class="buy-btn">Submit</a>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div><!-- End Pricing Item -->
@@ -195,58 +290,6 @@
       </div>
     </section><!-- End Pricing Section -->
 
-
-    <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
-      <div class="container" data-aos="fade-up">
-        <ul class="nav nav-tabs row gy-4 d-flex">
-
-          <li class="nav-item col-6 col-md-4 col-lg-2">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#tab-1">
-              <i class="bi bi-binoculars color-cyan"></i>
-              <h4>Modinest</h4>
-            </a>
-          </li><!-- End Tab 1 Nav -->
-
-          <li class="nav-item col-6 col-md-4 col-lg-2">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-2">
-              <i class="bi bi-box-seam color-indigo"></i>
-              <h4>Undaesenti</h4>
-            </a>
-          </li><!-- End Tab 2 Nav -->
-
-          <li class="nav-item col-6 col-md-4 col-lg-2">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-3">
-              <i class="bi bi-brightness-high color-teal"></i>
-              <h4>Pariatur</h4>
-            </a>
-          </li><!-- End Tab 3 Nav -->
-
-          <li class="nav-item col-6 col-md-4 col-lg-2">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-4">
-              <i class="bi bi-command color-red"></i>
-              <h4>Nostrum</h4>
-            </a>
-          </li><!-- End Tab 4 Nav -->
-
-          <li class="nav-item col-6 col-md-4 col-lg-2">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-5">
-              <i class="bi bi-easel color-blue"></i>
-              <h4>Adipiscing</h4>
-            </a>
-          </li><!-- End Tab 5 Nav -->
-
-          <li class="nav-item col-6 col-md-4 col-lg-2">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-6">
-              <i class="bi bi-map color-orange"></i>
-              <h4>Reprehit</h4>
-            </a>
-          </li><!-- End Tab 6 Nav -->
-
-        </ul>
-
-      </div>
-    </section><!-- End Features Section -->
 
 
 

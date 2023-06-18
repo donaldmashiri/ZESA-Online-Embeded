@@ -1,37 +1,53 @@
+namespace App\Http\Controllers;
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="footer-legal text-center">
-      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PragmaRX\Google2FAQRCode\Google2FA;
 
-        <div class="d-flex flex-column align-items-center align-items-lg-start">
-          <div class="copyright">
-            &copy; Copyright <strong><span>Token less Electricity
-Pre-Payment System</span></strong> ZETDC
-          </div>
-         
-        </div>
+class TwoFactorAuthController extends Controller
+{
+    public function enableTwoFactorAuth()
+    {
+        $user = Auth::user();
 
-      </div>
-    </div>
+        // Generate a new secret key for the user
+        $google2fa = new Google2FA();
+        $secretKey = $google2fa->generateSecretKey();
 
-  </footer><!-- End Footer -->
+        // Save the secret key to the user's record in the database
+        $user->google2fa_secret = $secretKey;
+        $user->save();
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        // Generate a QR code URL for the user to scan
+        $qrCodeUrl = $google2fa->getQRCodeInline(
+            config('app.name'),
+            $user->email,
+            $secretKey
+        );
 
-  <div id="preloader"></div>
+        return view('enable_2fa', compact('qrCodeUrl', 'secretKey'));
+    }
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+    public function verifyTwoFactorAuth(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+        ]);
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+        $user = Auth::user();
+        $google2fa = new Google2FA();
 
-</body>
+        // Verify the user's 2FA code
+        $valid = $google2fa->verifyKey($user->google2fa_secret, $request->input('code'));
 
-</html>
+        if ($valid) {
+            // Enable 2FA for the user
+            $user->google2fa_enabled = true;
+            $user->save();
+
+            return redirect()->route('home')->with('success', 'Two-factor authentication enabled successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Invalid verification code. Please try again.');
+        }
+    }
+}
